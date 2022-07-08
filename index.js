@@ -13,3 +13,11 @@ mongoose
   .catch((err) => {
     console.log('OH NO MONGO CONNECTION ERROR', err)
   })
+
+app.get('/login', (req, res) => {
+  res.send('hello')
+})
+
+app.listen(3000, () => {
+  console.log('APP IS LISTENING ON PORT 3000')
+})
