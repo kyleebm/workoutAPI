@@ -6,10 +6,11 @@ router.get('/login', (req, res) => {
   res.send('login')
 })
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const newUser = User(req.body)
+  await newUser.save()
   console.log(newUser)
-  res.send(newUser)
+  //res.redirect('/dashboard') go to the home page after saving
 })
 
 router.get('/logout', (req, res) => {
