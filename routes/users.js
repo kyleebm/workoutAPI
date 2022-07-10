@@ -9,6 +9,11 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
   const newUser = User(req.body)
   console.log(newUser)
+  res.send(newUser)
+})
+
+router.get('/logout', (req, res) => {
+  res.send('logout')
 })
 
 module.exports = router

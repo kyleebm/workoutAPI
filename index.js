@@ -13,6 +13,8 @@ mongoose
   .catch((err) => {
     console.log('OH NO MONGO CONNECTION ERROR', err)
   })
+// lets us access form data
+app.use(express.urlencoded({ extended: true }))
 
 const userRoutes = require('./routes/users')
 app.use('/register', userRoutes)
