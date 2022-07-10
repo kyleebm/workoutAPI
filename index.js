@@ -16,8 +16,12 @@ mongoose
 // lets us access form data
 app.use(express.urlencoded({ extended: true }))
 
+// routes
 const userRoutes = require('./routes/users')
 app.use('/register', userRoutes)
+
+const workoutRoutes = require('./routes/workouts')
+app.use('/workouts', workoutRoutes)
 
 //add port
 app.listen(3000, () => {
