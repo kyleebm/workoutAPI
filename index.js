@@ -16,6 +16,11 @@ mongoose
 // lets us access form data
 app.use(express.urlencoded({ extended: true }))
 
+//set up paths for views directory
+app.set('view engine', 'ejs')
+const path = require('path')
+app.set('views', path.join(__dirname, '/views'))
+
 // routes
 const userRoutes = require('./routes/users')
 app.use('/register', userRoutes)

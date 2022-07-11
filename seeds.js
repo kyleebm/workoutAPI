@@ -17,6 +17,12 @@ const seedWorkouts = [
     reps: 5,
   },
   {
+    name: 'Bench press',
+    sets: 3,
+    reps: 5,
+  },
+
+  {
     name: 'tri pulldown',
     sets: 3,
     reps: 15,
@@ -26,12 +32,29 @@ const seedWorkouts = [
     sets: 5,
     reps: 5,
   },
+  {
+    name: 'bent over rows',
+    sets: 3,
+    reps: 15,
+  },
+  {
+    name: 'cable bicep curls',
+    sets: 3,
+    reps: 15,
+  },
 ]
 
-Workout.insertMany(seedWorkouts)
-  .then((res) => {
-    console.log(res)
-  })
-  .catch((e) => {
-    console.log(e)
-  })
+const seedDb = async () => {
+  await Workout.deleteMany({})
+  await Workout.insertMany(seedWorkouts)
+    .then((res) => {
+      console.log(res)
+    })
+    .catch((e) => {
+      console.log(e)
+    })
+}
+
+seedDb().then(() => {
+  mongoose.connection.close()
+})
