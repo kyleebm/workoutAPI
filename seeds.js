@@ -16,6 +16,7 @@ const seedWorkouts = [
     sets: 3,
     reps: 5,
   },
+
   {
     name: 'Bench press',
     sets: 3,
@@ -27,16 +28,19 @@ const seedWorkouts = [
     sets: 3,
     reps: 15,
   },
+
   {
     name: 'squats',
     sets: 5,
     reps: 5,
   },
+
   {
     name: 'bent over rows',
     sets: 3,
     reps: 15,
   },
+
   {
     name: 'cable bicep curls',
     sets: 3,

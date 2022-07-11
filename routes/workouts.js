@@ -4,8 +4,10 @@ const router = express.Router()
 //imports for models
 const Workout = require('../models/workouts')
 
-router.get('/', (req, res) => {
-  res.render('workouts')
+router.get('/', async (req, res) => {
+  const allWorkouts = await Workout.find({})
+  console.log(allWorkouts)
+  res.render('workouts', { allWorkouts })
 })
 
 router.get('/new', (req, res) => {
@@ -24,15 +26,15 @@ router.get('/:id/edit', async (req, res) => {
   const { id } = req.params
   const workout = await Workout.findById(id)
   //console.log(workout)
-  res.render('workouts/edit')
+  res.render('workouts/edit', { workout })
 })
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params
   const workout = await Workout.findById(id)
-  console.log(workout)
+  //console.log(workout)
   //res.send(workout)
-  res.render('workouts/show')
+  res.render('workouts/show', { workout })
 })
 
 router.put('/:id', async (req, res) => {

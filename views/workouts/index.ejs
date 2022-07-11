@@ -7,6 +7,14 @@
     <title>all workouts</title>
   </head>
   <body>
-    index
+    <h1>All workouts</h1>
+    <% for(w of allWorkouts){%>
+    <section>
+      <h3>workout name:<a href="/workouts/<%= w._id%>"><%= w.name%></a></h3>
+      <p>sets: <%= w.sets%></p>
+      <p>reps: <%= w.reps%></p>
+    </section>
+
+    <%}%>
   </body>
 </html>

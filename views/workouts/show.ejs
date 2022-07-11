@@ -7,6 +7,12 @@
     <title>show</title>
   </head>
   <body>
-    show page
+    <%const {name, sets, reps} = workout%>
+    <section>
+      <h3>workout name: <%=name%></h3>
+      <p>sets: <%=sets %></p>
+      <p>reps: <%=reps %></p>
+    </section>
+    <footer><a href="/workouts">all workouts</a></footer>
   </body>
 </html>
