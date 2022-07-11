@@ -50,6 +50,7 @@ router.delete('/workouts/:id', async (req, res) => {
   const { id } = req.params
   const deletedWorkout = await Workout.findByIdAndDelete(id)
   console.log(deletedWorkout)
+  //res.redirect(workouts)
   res.send('delete route')
 })
 
