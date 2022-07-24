@@ -16,6 +16,10 @@ mongoose
 // lets us access form data
 app.use(express.urlencoded({ extended: true }))
 
+//set up method-override
+const methodOverride = require('method-override')
+app.use(methodOverride('_method'))
+
 //set up paths for views directory
 app.set('view engine', 'ejs')
 const path = require('path')

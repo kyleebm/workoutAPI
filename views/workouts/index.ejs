@@ -8,6 +8,7 @@
   </head>
   <body>
     <h1>All workouts</h1>
+    <a href="/workouts/new">make new workout</a>
     <% for(w of allWorkouts){%>
     <section>
       <h3>workout name:<a href="/workouts/<%= w._id%>"><%= w.name%></a></h3>

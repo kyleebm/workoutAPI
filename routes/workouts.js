@@ -15,7 +15,7 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/new', async (req, res) => {
-  const newWorkout = new Workout(req.body)
+  const newWorkout = new Workout(req.body.workout)
   await newWorkout.save()
   console.log(newWorkout)
   // res.send('made a new workout')
@@ -39,7 +39,7 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   const { id } = req.params
-  const newWorkout = req.body
+  const newWorkout = { ...req.body.workout }
   const workout = await Workout.findByIdAndUpdate(id, newWorkout, {
     runValidators: true,
     new: true,
