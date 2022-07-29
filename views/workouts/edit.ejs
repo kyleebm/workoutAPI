@@ -7,20 +7,38 @@
     <title>new workout</title>
   </head>
   <body>
+    <%const {name, sets, reps} = workout%>
+
     <form action="/workouts/<%=workout._id%>?_method=PUT" method="post">
       <section>
         <label for="workout[name]">workout name</label>
-        <input type="text" id="workout[name]" name="workout[name]" />
+        <input
+          type="text"
+          id="workout[name]"
+          name="workout[name]"
+          placeholder="<%=name%>"
+        />
       </section>
       <section>
         <label for="workout[sets]">workout sets</label>
-        <input type="number" id="workout[sets]" name="workout[sets]" />
+        <input
+          type="number"
+          id="workout[sets]"
+          name="workout[sets]"
+          placeholder="<%=sets%>"
+        />
       </section>
       <section>
         <label for="workout[reps]">workout reps</label>
-        <input type="number" id="workout[reps]" name="workout[reps]" />
+        <input
+          type="number"
+          id="workout[reps]"
+          name="workout[reps]"
+          placeholder="<%=reps%>"
+        />
       </section>
       <button type="submit">submit</button>
     </form>
+    <a href="/workouts/<%=workout._id%>">back to <%=name%></a>
   </body>
 </html>
