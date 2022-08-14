@@ -32,6 +32,16 @@ app.use('/register', userRoutes)
 const workoutRoutes = require('./routes/workouts')
 app.use('/workouts', workoutRoutes)
 
+//set up error handler
+const ExpressError = require('./utils/ExpressError')
+app.all('*', (req, res, next) => {
+  next(new ExpressError('Page Not Found', 404))
+})
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message = 'something went wrong' } = err
+  res.status(statusCode).send(message)
+})
 //add port
 app.listen(3000, () => {
   console.log('APP IS LISTENING ON PORT 3000')
