@@ -4,6 +4,11 @@ const router = express.Router()
 //imports for models
 const Workout = require('../models/workouts')
 
+function catchAsync(fn) {
+  return function (req, res, next) {
+    fn(req, res, next).catch((e) => next(e))
+  }
+}
 router.get('/', async (req, res) => {
   const allWorkouts = await Workout.find({})
   console.log(allWorkouts)
@@ -51,7 +56,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const { id } = req.params
   const deletedWorkout = await Workout.findByIdAndDelete(id)
-  console.log(deletedWorkout)
+  //console.log(deletedWorkout)
   res.redirect('/workouts')
   //res.send('delete route')
 })
