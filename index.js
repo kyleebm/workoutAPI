@@ -34,6 +34,7 @@ app.use('/workouts', workoutRoutes)
 
 //set up error handler
 const ExpressError = require('./utils/ExpressError')
+const { required } = require('joi')
 app.all('*', (req, res, next) => {
   next(new ExpressError('Page Not Found', 404))
 })

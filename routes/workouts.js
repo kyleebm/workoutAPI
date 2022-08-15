@@ -6,6 +6,19 @@ const Workout = require('../models/workouts')
 
 //import error handler
 const catchAsync = require('../utils/catchAsync')
+const ExpressError = require('../utils/ExpressError')
+
+// import validation
+const { workoutSchema } = require('../schemas')
+const validateWorkout = (req, res, next) => {
+  const { error } = workoutSchema.validate(req.body)
+  if (error) {
+    const msg = error.details.map((em) => em.message).join(',')
+    throw new ExpressError(msg, 400)
+  } else {
+    next()
+  }
+}
 
 router.get(
   '/',
@@ -22,6 +35,7 @@ router.get('/new', (req, res) => {
 
 router.post(
   '/new',
+  validateWorkout,
   catchAsync(async (req, res, next) => {
     const newWorkout = new Workout(req.body.workout)
     await newWorkout.save()
@@ -54,6 +68,7 @@ router.get(
 
 router.put(
   '/:id',
+  validateWorkout,
   catchAsync(async (req, res, next) => {
     const { id } = req.params
     const newWorkout = { ...req.body.workout }
