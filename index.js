@@ -25,6 +25,28 @@ app.set('view engine', 'ejs')
 const path = require('path')
 app.set('views', path.join(__dirname, '/views'))
 
+// session setup
+const session = require('express-session')
+const sessionConfig = {
+  secret: 'willbeabettersecret',
+  resave: 'false',
+  saveUnitialized: 'true',
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() * 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
+}
+app.use(session(sessionConfig))
+
+// passport setup
+const User = require('./models/users')
+const passport = require('passport')
+const LocalStrategy = require('passport-local')
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new LocalStrategy(User.authenticate()))
+
 // routes
 const userRoutes = require('./routes/users')
 app.use('/register', userRoutes)
@@ -34,7 +56,6 @@ app.use('/workouts', workoutRoutes)
 
 //set up error handler
 const ExpressError = require('./utils/ExpressError')
-const { required } = require('joi')
 app.all('*', (req, res, next) => {
   next(new ExpressError('Page Not Found', 404))
 })

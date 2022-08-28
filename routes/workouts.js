@@ -13,6 +13,7 @@ const { workoutSchema } = require('../schemas')
 const validateWorkout = (req, res, next) => {
   const { error } = workoutSchema.validate(req.body)
   if (error) {
+    console.log(error.details)
     const msg = error.details.map((em) => em.message).join(',')
     throw new ExpressError(msg, 400)
   } else {
