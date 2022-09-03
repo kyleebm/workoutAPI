@@ -1,20 +1,28 @@
 const express = require('express')
 const router = express.Router()
+
+//import error handler
+const catchAsync = require('../utils/catchAsync')
+const ExpressError = require('../utils/ExpressError')
+
+//import models
 const User = require('../models/users')
 
-router.get('/login', (req, res) => {
-  res.render('login')
+router.get('/register', (req, res) => {
+  // res.send('register')
+  res.render('../views/users/register')
 })
 
-router.post('/login', async (req, res) => {
-  const newUser = User(req.body)
-  await newUser.save()
-  console.log(newUser)
-  //res.redirect('/dashboard') go to the home page after saving
-})
+router.post(
+  '/register',
+  catchAsync(async (req, res) => {
+    const { name, email, password } = req.body
 
-router.get('/logout', (req, res) => {
-  res.send('logout')
-})
+    const user = new User({ username: name, email: email })
+    const registeredUser = await User.register(user, password)
+    console.log(registeredUser)
+    res.redirect('/workouts')
+  })
+)
 
 module.exports = router

@@ -47,15 +47,15 @@ app.use(passport.initialize())
 app.use(passport.session())
 passport.use(new LocalStrategy(User.authenticate()))
 
-app.get('/fakeUser', async (req, res) => {
-  const user = new User({ email: 'kyyyyy@gmail.com', username: 'kyyyyy' })
-  const newUser = await User.register(user, 'chicken')
-  res.send(newUser)
-})
+// app.get('/fakeUser', async (req, res) => {
+//   const user = new User({ email: 'kyyyyy@gmail.com', username: 'kyyyyy' })
+//   const newUser = await User.register(user, 'chicken')
+//   res.send(newUser)
+// })
 
 // routes
 const userRoutes = require('./routes/users')
-app.use('/register', userRoutes)
+app.use('/', userRoutes)
 
 const workoutRoutes = require('./routes/workouts')
 app.use('/workouts', workoutRoutes)
