@@ -1,12 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-//import error handler
-const catchAsync = require('../utils/catchAsync')
-const ExpressError = require('../utils/ExpressError')
 
 //import models
-const User = require('../models/users')
+const { register,login } = require('../controllers/auth')
 
 router.get('/register', (req, res) => {
   // res.send('register')
@@ -15,14 +12,12 @@ router.get('/register', (req, res) => {
 
 router.post(
   '/register',
-  catchAsync(async (req, res) => {
-    const { name, email, password } = req.body
+  register
+)
 
-    const user = new User({ username: name, email: email })
-    const registeredUser = await User.register(user, password)
-    console.log(registeredUser)
-    res.redirect('/workouts')
-  })
+router.post(
+  '/login',
+  login
 )
 
 module.exports = router

@@ -25,33 +25,6 @@ app.set('view engine', 'ejs')
 const path = require('path')
 app.set('views', path.join(__dirname, '/views'))
 
-// session setup
-const session = require('express-session')
-const sessionConfig = {
-  secret: 'willbeabettersecret',
-  resave: 'false',
-  saveUnitialized: 'true',
-  cookie: {
-    httpOnly: true,
-    expires: Date.now() * 1000 * 60 * 60 * 24 * 7,
-    maxAge: 1000 * 60 * 60 * 24 * 7,
-  },
-}
-app.use(session(sessionConfig))
-
-// passport setup
-const User = require('./models/users')
-const passport = require('passport')
-const LocalStrategy = require('passport-local')
-app.use(passport.initialize())
-app.use(passport.session())
-passport.use(new LocalStrategy(User.authenticate()))
-
-// app.get('/fakeUser', async (req, res) => {
-//   const user = new User({ email: 'kyyyyy@gmail.com', username: 'kyyyyy' })
-//   const newUser = await User.register(user, 'chicken')
-//   res.send(newUser)
-// })
 
 // routes
 const userRoutes = require('./routes/users')
@@ -61,9 +34,9 @@ const workoutRoutes = require('./routes/workouts')
 app.use('/workouts', workoutRoutes)
 
 //set up error handler
-const ExpressError = require('./utils/ExpressError')
+const {BadRequestError} = require('./errors')
 app.all('*', (req, res, next) => {
-  next(new ExpressError('Page Not Found', 404))
+  next( new BadRequestError('Page Not Found'))
 })
 
 app.use((err, req, res, next) => {

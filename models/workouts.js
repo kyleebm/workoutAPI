@@ -14,7 +14,12 @@ const workoutSchema = new Schema({
     type: Number,
     required: true,
   },
-})
+  createdBy:{
+    type: mongoose.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'please provide author']
+  }
+},{timestamps:true})
 
 const Workout = mongoose.model('Workout', workoutSchema)
 
