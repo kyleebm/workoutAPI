@@ -10,6 +10,8 @@ router.get('/register', (req, res) => {
   res.render('../views/users/register')
 })
 
+
+
 router.post(
   '/register',
   register

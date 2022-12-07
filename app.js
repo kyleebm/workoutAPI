@@ -31,7 +31,7 @@ const userRoutes = require('./routes/users')
 app.use('/api/v1/auth', userRoutes)
 
 const homeRoutes = require('./routes/home')
-app.use('/api/v1/home',authMiddleware, homeRoutes)
+app.use('/api/v1/home', homeRoutes)
 
 const workoutRoutes = require('./routes/workouts')
 app.use('/api/v1/workouts', authMiddleware, workoutRoutes)
