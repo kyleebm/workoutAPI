@@ -1,20 +1,25 @@
 const express = require('express')
 const router = express.Router()
-const User = require('../models/users')
 
-router.get('/login', (req, res) => {
-  res.send('login')
+
+//import models
+const { register,login } = require('../controllers/auth')
+
+router.get('/register', (req, res) => {
+  // res.send('register')
+  res.render('../views/users/register')
 })
 
-router.post('/login', async (req, res) => {
-  const newUser = User(req.body)
-  await newUser.save()
-  console.log(newUser)
-  //res.redirect('/dashboard') go to the home page after saving
-})
 
-router.get('/logout', (req, res) => {
-  res.send('logout')
-})
+
+router.post(
+  '/register',
+  register
+)
+
+router.post(
+  '/login',
+  login
+)
 
 module.exports = router

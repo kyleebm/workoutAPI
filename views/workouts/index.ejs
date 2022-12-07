@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>all workouts</title>
+  </head>
+  <body>
+    <h1>All workouts</h1>
+    <a href="/workouts/new">make new workout</a>
+    <% for(w of allWorkouts){%>
+    <section>
+      <h3>workout name:<a href="/workouts/<%= w._id%>"><%= w.name%></a></h3>
+      <p>sets: <%= w.sets%></p>
+      <p>reps: <%= w.reps%></p>
+    </section>
+    <%}%>
+  </body>
+</html>
