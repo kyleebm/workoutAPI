@@ -6,11 +6,17 @@ const catchAsync = require('../utils/catchAsync')
 
 const getAllWorkouts = catchAsync(async (req, res, next) => {
     console.log(req.query)
-    const {muscleGroup, name, sets, reps, createdBy, sort} = req.query
+    const {muscleGroup, name, sets, reps, createdBy, sort, fields} = req.query
     const queryObject = {}
 
     if(muscleGroup){
       queryObject.muscleGroup = muscleGroup
+    }
+    
+    
+    if(createdBy){
+      queryObject.createdBy = createdBy
+      //probably used by a button
     }
 
     if(name){
@@ -21,11 +27,17 @@ const getAllWorkouts = catchAsync(async (req, res, next) => {
     let result = Workout.find(queryObject)
 
     if(sort){
-      const sortList = sort.split(',').join('')
+      const sortList = sort.split(',').join(' ')
       result = result.sort(sortList)
     }
     else{
       result = result.sort('createdAt')
+    }
+
+    if(fields){
+      //changes the object properties that the user can get as a result from our api
+      const fieldList = fields.split(',').join(' ')
+      result = result.select(fieldList)
     }
 
     const Workouts = await result
