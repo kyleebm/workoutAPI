@@ -14,6 +14,14 @@ const workoutSchema = new Schema({
     type: Number,
     required: [true, 'please provide number of reps'],
   },
+  muscleGroup: {
+    type: String, 
+    enum:{
+      values: ['chest', 'back', 'shoulders', 'arms', 'legs'],
+      message: '{VALUE} is not supported'
+    }
+  }
+  ,
   createdBy:{
     type: mongoose.Types.ObjectId,
     ref:'User',

@@ -43,7 +43,7 @@ app.use('*', (req, res) => {
 })
 
 app.use((err, req, res, next) => {
-  
+  console.log(err)
   const { statusCode = 500, message = 'something went wrong' } = err
   res.status(statusCode).render('errors', {statusCode, message})
 })

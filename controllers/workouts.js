@@ -5,8 +5,31 @@ const catchAsync = require('../utils/catchAsync')
 
 
 const getAllWorkouts = catchAsync(async (req, res, next) => {
-    const allWorkouts = await Workout.find({})
-    res.status(StatusCodes.OK).json({allWorkouts, count: allWorkouts.length})
+    console.log(req.query)
+    const {muscleGroup, name, sets, reps, createdBy, sort} = req.query
+    const queryObject = {}
+
+    if(muscleGroup){
+      queryObject.muscleGroup = muscleGroup
+    }
+
+    if(name){
+      queryObject.name = {$regex : name, $options: 'i'} 
+      // using mongo operators to search for case insensitive regex expression of name 
+    }
+
+    let result = Workout.find(queryObject)
+
+    if(sort){
+      const sortList = sort.split(',').join('')
+      result = result.sort(sortList)
+    }
+    else{
+      result = result.sort('createdAt')
+    }
+
+    const Workouts = await result
+    res.status(StatusCodes.OK).json({Workouts, count: Workouts.length})
     //.render('workouts', { allWorkouts })
   })
 
@@ -68,6 +91,7 @@ const deleteWorkout = catchAsync(async (req, res, next) => {
     }
     res.status(StatusCodes.OK).send('')
   })
+
 
 
 
