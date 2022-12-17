@@ -2,9 +2,6 @@
 const express = require('express')
 const app = express()
 
-require('dotenv').config({path:__dirname+`/.env`})
-
-
 // extra security packages
 const helmet = require('helmet')
 const cors = require('cors')
@@ -45,6 +42,7 @@ const path = require('path')
 app.set('views', path.join(__dirname, '/views'))
 
 //connectDb
+require('dotenv').config({path:__dirname+`/.env`})
 
 const connectDB = require('./db/connect')
 
