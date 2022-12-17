@@ -77,7 +77,7 @@ const dbAddress = process.env.MONGO_URI
 
 const start = async () => {
   try {
-    console.log(dbAddress)
+    await console.log(dbAddress)
     await connectDB(dbAddress)
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
