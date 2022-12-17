@@ -72,7 +72,8 @@ app.use((err, req, res, next) => {
 
 
 const port = process.env.PORT || 3000
-const dbAddress = process.env.MONGO_URI||'mongodb://localhost:27017/workoutAPI'  
+const dbAddress = process.env.MONGO_URI 
+"||'mongodb://localhost:27017/workoutAPI'  "
 
 const start = async () => {
   try {
