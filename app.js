@@ -70,7 +70,10 @@ app.use((err, req, res, next) => {
 
 
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT 
+
+// || 3000
+
 const dbAddress = process.env.MONGO_URI 
 
 // "||'mongodb://localhost:27017/workoutAPI'  "
@@ -78,6 +81,7 @@ const dbAddress = process.env.MONGO_URI
 const start = async () => {
   try {
     await console.log(dbAddress)
+    await console.log(port)
     await connectDB(dbAddress)
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
