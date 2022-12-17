@@ -78,8 +78,8 @@ const dbAddress = process.env.MONGO_URI
 // "||'mongodb://localhost:27017/workoutAPI'  "
 
 const start = async () => {
-  console.log(dbAddress)
   try {
+    console.log(dbAddress)
     await connectDB(dbAddress)
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
