@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 
-require('dotenv').config({path:__dirname+`/./../../.env`})
+require('dotenv').config({path:__dirname+`/.env`})
 
 
 // extra security packages
@@ -74,7 +74,7 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 3000
 const dbAddress = process.env.MONGO_URI 
-"||'mongodb://localhost:27017/workoutAPI'  "
+// "||'mongodb://localhost:27017/workoutAPI'  "
 
 const start = async () => {
   try {
