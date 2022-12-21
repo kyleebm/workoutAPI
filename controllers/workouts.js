@@ -5,24 +5,27 @@ const catchAsync = require('../utils/catchAsync')
 
 
 const getAllWorkouts = catchAsync(async (req, res, next) => {
-    console.log(req.query)
-    const {muscleGroup, name, sets, reps, createdBy, sort, fields} = req.query
+    console.log(req.query, req.user)
+    const {muscleGroup, name, sets, reps, createdBy, sort, fields, seeAllWorkouts} = req.query
     const queryObject = {}
+    
+    //either show all workouts in database or just the ones made by user    
+    if(!seeAllWorkouts){
+       queryObject.createdBy = req.user.userId
+    }
+    
+    
 
     if(muscleGroup){
       queryObject.muscleGroup = muscleGroup
-    }
-    
-    
-    if(createdBy){
-      queryObject.createdBy = createdBy
-      //probably used by a button
-    }
+    }    
 
     if(name){
       queryObject.name = {$regex : name, $options: 'i'} 
       // using mongo operators to search for case insensitive regex expression of name 
     }
+    
+    
 
     let result = Workout.find(queryObject)
 
@@ -59,33 +62,41 @@ const createWorkout = catchAsync(async (req, res, next) => {
 const createWorkoutForm = (req,res)=>{res.status(StatusCodes.OK).render('../views/workouts/new')}
 
 const getWorkout = catchAsync(async (req, res) => {
+    console.log(req.user.userId)  
     const { user: { userId}, params:{id:workoutId} } = req
     const workout = await Workout.findOne({_id: workoutId, createdBy:userId})
+    
     res.status(StatusCodes.OK)
        .json(workout)
        //.render('workouts/edit', { workout })
   })
 
 const updateWorkout = catchAsync( async (req,res) =>{
-    const {user:{userId}, params: {id: workoutId}, body:{name, sets, reps}} =req
+    console.log(req.user, req.params, req.body)
+    const {
+          user:{userId}, 
+          params: {id: workoutId}, 
+          body:{name, sets, reps, muscleGroup}
+        } =req
     // const { id } = req.params
     // const newWorkout = { ...req.body.workout }
     // const createdBy = req.user.userId 
 
-    if(name===""||reps ==="" || sets===""){
+    if(name===""||reps ==="" || sets==="" || muscleGroup===""){
         throw new BadRequestError('fields cannot be empty')
     }
 
     
-    const workout = await Workout.findOneAndUpdate({
+    const workout = await Workout.findByIdAndUpdate({
         _id:workoutId, 
         createdBy:userId},req.body,
      {
         runValidators: true,
         new: true,
       })
+
     if(!workout){
-        throw new NotFoundError(`No workout with Id ${id}`)
+        throw new NotFoundError(`No workout with Id ${workoutId}`)
     }
     res.status(StatusCodes.OK).json({workout})
     //.redirect(`/workouts/${workout.id}`)
@@ -93,7 +104,7 @@ const updateWorkout = catchAsync( async (req,res) =>{
 
 })
 
-const deleteWorkout = catchAsync(async (req, res, next) => {
+const deleteWorkout = catchAsync(async (req, res) => {
     const { user:{userId}, params:{id:workoutId} } = req
     const deletedWorkout = await Workout.findByIdAndRemove({_id : workoutId, createdBy: userId})
     console.log(deletedWorkout)
