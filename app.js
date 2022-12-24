@@ -51,16 +51,16 @@ const userRoutes = require('./routes/users')
 app.use('/api/v1/auth', userRoutes)
 
 const homeRoutes = require('./routes/home')
-app.use('/api/v1/home', homeRoutes)
+app.use('/', homeRoutes)
 
 const workoutRoutes = require('./routes/workouts')
 app.use('/api/v1/workouts', authMiddleware, workoutRoutes)
 
 // set up error handler
-const {BadRequestError} = require('./errors')
-app.use('*', (req, res) => {
-  throw new BadRequestError('Page Not Found')
-})
+// const {BadRequestError} = require('./errors')
+// app.use('*', (req, res) => {
+//   throw new BadRequestError('Page Not Found')
+// })
 
 app.use((err, req, res, next) => {
   console.log(err)
