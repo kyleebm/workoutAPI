@@ -1,4 +1,4 @@
-const User = require('../models/users')
+const User = require('../models/User')
 const { StatusCodes } = require('http-status-codes')
 const {BadRequestError, UnauthenticatedError} = require('../errors')
 const catchAsync = require('../utils/catchAsync')

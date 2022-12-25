@@ -37,6 +37,15 @@
           placeholder="<%=reps%>"
         />
       </section>
+      <section>
+        <label for="workout[muscleGroup]">workout reps</label>
+        <input
+          type="number"
+          id="workout[muscleGroup]"
+          name="workout[muscleGroup]"
+          placeholder="<%=muscleGroup%>"
+        />
+      </section>
       <button type="submit">submit</button>
     </form>
     <a href="/workouts/<%=workout._id%>">back to <%=name%></a>

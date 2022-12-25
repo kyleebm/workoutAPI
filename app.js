@@ -1,3 +1,5 @@
+require('express-async-errors')
+
 // set up express
 const express = require('express')
 const app = express()
@@ -33,8 +35,6 @@ const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
 
 
-const authMiddleware = require('./middleware/authentication')
-
 
 //set up paths for views directory
 app.set('view engine', 'ejs')
@@ -46,18 +46,28 @@ require('dotenv').config({path:__dirname+`/.env`})
 
 const connectDB = require('./db/connect')
 
+
+const authenticateUser = require('./middleware/authentication')
+
+
 // routes
-const userRoutes = require('./routes/users')
-app.use('/api/v1/auth', userRoutes)
 
 const homeRoutes = require('./routes/home')
 app.use('/', homeRoutes)
 
-const workoutRoutes = require('./routes/workouts')
-app.use('/api/v1/workouts', authMiddleware, workoutRoutes)
 
-//set up error handler
-const {BadRequestError} = require('./errors')
+const userRoutes = require('./routes/users')
+app.use('/api/v1/auth', userRoutes)
+
+
+
+const workoutRoutes = require('./routes/workouts')
+app.use('/api/v1/workouts', authenticateUser, workoutRoutes)
+
+// set up error handler
+const errorHandlerMiddleware = require('./middleware/errorHandler')
+const BadRequestError = require('./errors/badRequest')
+
 app.use('*', (req, res) => {
   throw new BadRequestError('Page Not Found')
 })
