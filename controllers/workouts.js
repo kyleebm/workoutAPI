@@ -62,7 +62,7 @@ const createWorkout = catchAsync(async (req, res, next) => {
 const createWorkoutForm = (req,res)=>{res.status(StatusCodes.OK).render('../views/workouts/new')}
 
 const getWorkout = catchAsync(async (req, res) => {
-    console.log(req.user.userId)  
+      
     const { user: { userId}, params:{id:workoutId} } = req
     const workout = await Workout.findOne({_id: workoutId, createdBy:userId})
     
@@ -72,15 +72,13 @@ const getWorkout = catchAsync(async (req, res) => {
   })
 
 const updateWorkout = catchAsync( async (req,res) =>{
-    console.log(req.user, req.params, req.body)
+   
     const {
           user:{userId}, 
           params: {id: workoutId}, 
           body:{name, sets, reps, muscleGroup}
         } =req
-    // const { id } = req.params
-    // const newWorkout = { ...req.body.workout }
-    // const createdBy = req.user.userId 
+
 
     if(name===""||reps ==="" || sets==="" || muscleGroup===""){
         throw new BadRequestError('fields cannot be empty')
@@ -107,7 +105,7 @@ const updateWorkout = catchAsync( async (req,res) =>{
 const deleteWorkout = catchAsync(async (req, res) => {
     const { user:{userId}, params:{id:workoutId} } = req
     const deletedWorkout = await Workout.findByIdAndRemove({_id : workoutId, createdBy: userId})
-    console.log(deletedWorkout)
+    
     //res.redirect('/workouts')
     if(!deletedWorkout){
       throw new NotFoundError(`No workout with Id ${workoutId}`)
