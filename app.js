@@ -28,24 +28,23 @@ app.use(helmet())
 app.use(cors())
 app.use(xss())
 
-
-
 //set up method-override
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
-
-
 
 //set up paths for views directory
 app.set('view engine', 'ejs')
 const path = require('path')
 app.set('views', path.join(__dirname, '/views'))
 
+const favicon = require('serve-favicon')
+
+app.use(favicon(path.join(__dirname  ,"public/" + "favicon.ico")))
+
 //connectDb
 require('dotenv').config({path:__dirname+`/.env`})
 
 const connectDB = require('./db/connect')
-
 
 const authenticateUser = require('./middleware/authentication')
 
@@ -67,6 +66,7 @@ app.use('/api/v1/workouts', authenticateUser, workoutRoutes)
 // set up error handler
 const errorHandlerMiddleware = require('./middleware/errorHandler')
 const BadRequestError = require('./errors/badRequest')
+const { dirname } = require('path')
 
 app.use('*', (req, res) => {
   throw new BadRequestError('Page Not Found')
