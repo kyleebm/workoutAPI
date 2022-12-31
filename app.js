@@ -12,7 +12,7 @@ const rateLimiter = require('express-rate-limit')
 
 
 // lets us access form data
-app.use(express.urlencoded({ extended: true }))
+//app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 

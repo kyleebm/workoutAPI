@@ -5,15 +5,15 @@ const catchAsync = require('../utils/catchAsync')
 
 
 
-const register = catchAsync(async (req,res) =>{
+const register = async (req,res) =>{
 
     const user = await User.create({...req.body})
     token = user.createJWT()
     
     res.status(StatusCodes.CREATED).json({user: {name:user.name}, token})
-})
+}
 
-const login =  catchAsync(async (req,res) =>{
+const login =  async (req,res) =>{
     const { email, password } =req.body
     if(!email||!password){
         throw new BadRequestError('please enter email and password')
@@ -31,7 +31,7 @@ const login =  catchAsync(async (req,res) =>{
 
     const token = user.createJWT()
     res.status(StatusCodes.OK).json({user: {name:user.name}, token})
-})
+}
 
 
 module.exports = {

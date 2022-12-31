@@ -5,10 +5,6 @@ const router = express.Router()
 //import models
 const { register,login } = require('../controllers/auth')
 
-
-
-
-
 router.post(
   '/register',
   register

@@ -5,7 +5,7 @@ const catchAsync = require('../utils/catchAsync')
 
 
 const getAllWorkouts = catchAsync(async (req, res, next) => {
-    console.log(req.query, req.user)
+    //console.log(req.query, req.user)
     const {muscleGroup, name, sets, reps, createdBy, sort, fields, seeAllWorkouts} = req.query
     const queryObject = {}
     
@@ -110,7 +110,9 @@ const deleteWorkout = catchAsync(async (req, res) => {
     if(!deletedWorkout){
       throw new NotFoundError(`No workout with Id ${workoutId}`)
     }
-    res.status(StatusCodes.OK).send('')
+
+    const remainingWorkouts = await Workout.find({})
+    res.status(StatusCodes.OK).json({remainingWorkouts})
   })
 
 
