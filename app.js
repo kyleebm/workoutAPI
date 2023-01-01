@@ -31,7 +31,10 @@ app.use(xss())
 
 
 const connectSrcUrls = [
-  "https://www.workoutbuddyapp.com/api/v1/auth/login"
+  "https://www.workoutbuddyapp.com/api/v1/auth/login",
+  "https://www.workoutbuddyapp.com/api/v1/auth/register",
+  "https://www.workoutbuddyapp.com/api/v1/workouts/new"
+  
 ];
 const fontSrcUrls = [];
 app.use(
