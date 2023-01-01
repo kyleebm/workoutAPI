@@ -28,13 +28,18 @@ app.use(helmet())
 app.use(cors())
 app.use(xss())
 
+
+
+const connectSrcUrls = [
+  "https://workoutbuddyapp.com"
+];
+const fontSrcUrls = [];
 app.use(
   helmet.contentSecurityPolicy({
-    contentSecurityPolicy: {useDefaults : true},
-    directives: {
-      "script-src": ["'self'", "http://www.workoutbuddyapp.com/api/v1/auth/login"],
-    },
-
+      directives: {
+          defaultSrc: [],
+          connectSrc: ["'self'", ...connectSrcUrls],
+      },
   })
 );
 
