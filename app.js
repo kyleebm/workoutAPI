@@ -31,7 +31,7 @@ app.use(xss())
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      "script-src": ["'self'", "workoutbuddyapp.com*"],
+      "script-src": ["'self'", "workoutbuddyapp.com"],
       "style-src": null,
     },
   })
