@@ -28,6 +28,11 @@ app.use(helmet())
 app.use(cors())
 app.use(xss())
 
+// Swagger
+const swaggerUI = require('swagger-ui-express')
+const YAML = require('yamljs')
+const swaggerDocument = YAML.load('./swagger.yaml')
+
 //set up method-override
 const methodOverride = require('method-override')
 app.use(methodOverride('_method'))
@@ -37,16 +42,15 @@ app.set('view engine', 'ejs')
 const path = require('path')
 app.set('views', path.join(__dirname, '/views'))
 
+//set up favicon
 const favicon = require('serve-favicon')
-
 app.use(favicon(path.join(__dirname  ,"public/" + "favicon.ico")))
 
 //connectDb
 require('dotenv').config({path:__dirname+`/.env`})
-
 const connectDB = require('./db/connect')
-
 const authenticateUser = require('./middleware/authentication')
+
 
 
 // routes
@@ -54,11 +58,10 @@ const authenticateUser = require('./middleware/authentication')
 const homeRoutes = require('./routes/home')
 app.use('/', homeRoutes)
 
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 const userRoutes = require('./routes/users')
 app.use('/api/v1/auth', userRoutes)
-
-
 
 const workoutRoutes = require('./routes/workouts')
 app.use('/api/v1/workouts', authenticateUser, workoutRoutes)

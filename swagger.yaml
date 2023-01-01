@@ -1,0 +1,309 @@
+openapi: 3.0.0
+info:
+  title: workoutAPI
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://www.workoutbuddyapp.com/api/v1
+  variables: {}
+paths:
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginRouteRequest'
+              - example:
+                  password: testPassword
+                  email: testEmail@email.com
+            example:
+              password: testPassword
+              email: testEmail@email.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/registerRouteRequest'
+              - example:
+                  name: testUser
+                  password: testPassword
+                  email: testEmail@email.com
+            example:
+              name: testUser
+              password: testPassword
+              email: testEmail@email.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /workouts:
+    get:
+      tags:
+      - Workouts
+      summary: Get All Workouts
+      operationId: GetAllWorkouts
+      parameters: 
+        - in: query
+          name: 'name'
+          schema:
+            type: string
+          description: a search string that can filter the workout results,
+        - in: query
+          name: muscleGroup
+          schema:
+            type: string
+            enum:
+              - arms
+              - chest
+              - back
+              - shoulders
+              - legs
+        - in: query
+          name: 'see all workouts'
+          schema:
+            type: boolean
+          description: when set to true, you will see all workouts from all accounts,
+        - in: query
+          name: 'sort'
+          schema:
+            type: string
+          description: allows you to sort by any property in the schema 
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /workouts/new:
+    post:
+      tags:
+      - Workouts
+      summary: Create Workout
+      operationId: CreateWorkout
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/createWorkoutRequest'
+              - example:
+                  workout:
+                    name: ' biceps'
+                    sets: '5'
+                    reps: '5'
+                    muscleGroup: arms
+            example:
+              workout:
+                name: ' biceps'
+                sets: '5'
+                reps: '5'
+                muscleGroup: arms
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /workouts/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The workout ID
+    get:
+      tags:
+      - Workouts
+      summary: Get One Workout
+      operationId: GetOneWorkout
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    patch:
+      tags:
+      - Workouts
+      summary: Update Workout
+      operationId: UpdateWorkout
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/updateWorkoutRequest'
+              - example:
+                  name: edited workout 2
+                  sets: '3'
+                  reps: '8'
+                  muscleGroup: legs
+            example:
+              name: edited workout 2
+              sets: '3'
+              reps: '8'
+              muscleGroup: legs
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  
+    delete:
+      tags:
+      - Workouts
+      summary: Delete Workout
+      operationId: DeleteWorkout
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    loginRouteRequest:
+      title: loginRouteRequest
+      required:
+      - password
+      - email
+      type: object
+      properties:
+        password:
+          type: string
+        email:
+          type: string
+      example:
+        password: newtestPassword
+        email: newtestEmail@email.com
+    registerRouteRequest:
+      title: registerRouteRequest
+      required:
+      - name
+      - password
+      - email
+      type: object
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+      example:
+        name: testUser
+        password: testPassword
+        email: testEmail@email.com
+    createWorkoutRequest:
+      title: createWorkoutRequest
+      required:
+      - workout
+      type: object
+      properties:
+        workout:
+          allOf:
+          - $ref: '#/components/schemas/Workout'
+          - {}
+      example:
+        workout:
+          name: ' biceps'
+          sets: '5'
+          reps: '5'
+          muscleGroup: arms
+    Workout:
+      title: Workout
+      required:
+      - name
+      - sets
+      - reps
+      - muscleGroup
+      type: object
+      properties:
+        name:
+          type: string
+        sets:
+          type: string
+        reps:
+          type: string
+        muscleGroup:
+          type: string
+      example:
+        name: ' biceps'
+        sets: '5'
+        reps: '5'
+        muscleGroup: arms
+    updateWorkoutRequest:
+      title: updateWorkoutRequest
+      required:
+      - name
+      - sets
+      - reps
+      - muscleGroup
+      type: object
+      properties:
+        name:
+          type: string
+        sets:
+          type: string
+        reps:
+          type: string
+        muscleGroup:
+          type: string
+      example:
+        name: edited workout 2
+        sets: '3'
+        reps: '8'
+        muscleGroup: legs
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+
+- name: Auth
+  description: ''
+- name: Workouts
+  description: ''
