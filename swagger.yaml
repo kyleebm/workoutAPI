@@ -4,8 +4,11 @@ info:
   contact: {}
   version: '1.0'
 servers:
-- url: https://www.workoutbuddyapp.com
+- url: https://www.workoutbuddyapp.com/api/v1
   variables: {}
+
+
+
 paths:
   /auth/login:
     post:
