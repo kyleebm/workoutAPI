@@ -28,7 +28,15 @@ app.use(helmet())
 app.use(cors())
 app.use(xss())
 
+app.use(
+  helmet.contentSecurityPolicy({
+    contentSecurityPolicy: {useDefaults : true},
+    directives: {
+      "script-src": ["'self'", " http://www.workoutbuddyapp.com/api/v1/auth/login"],
+    },
 
+  })
+);
 
 
 // Swagger
