@@ -30,8 +30,9 @@ app.use(xss())
 
 app.use(
   helmet.contentSecurityPolicy({
+    contentSecurityPolicy: {useDefaults : true},
     directives: {
-      "script-src": ["'self'", "workoutbuddyapp.com", "*.workoutbuddyapp.com"],
+      "script-src": ["'self'", " http://workoutbuddyapp.com 'unsafe-inline' 'unsafe-eval'"],
     },
   })
 );
