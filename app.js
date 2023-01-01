@@ -24,11 +24,18 @@ app.use(rateLimiter({
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 }))
-app.use(helmet({   contentSecurityPolicy: {  useDefaults: true, directives: { 'script-src': ["'self'", "https://whitelisted-domain.com"]  }  }  }))
+app.use(helmet())
 app.use(cors())
 app.use(xss())
 
-
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "workoutbuddyapp.com"],
+      "style-src": null,
+    },
+  })
+);
 
 // Swagger
 const swaggerUI = require('swagger-ui-express')
