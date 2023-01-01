@@ -58,7 +58,7 @@ const authenticateUser = require('./middleware/authentication')
 const homeRoutes = require('./routes/home')
 app.use('/', homeRoutes)
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+app.use('/api-use', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 const userRoutes = require('./routes/users')
 app.use('/api/v1/auth', userRoutes)
