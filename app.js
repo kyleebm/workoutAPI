@@ -6,7 +6,7 @@ const app = express()
 
 
 //setup css
-app.use( express.static(path.join(__dirname, "public/" +"assets/"+"styles.css")))
+app.use(express.static(path.join(__dirname, "public/")))
 
 
 // extra security packages
