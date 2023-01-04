@@ -5,9 +5,6 @@ const express = require('express')
 const app = express()
 
 
-//setup css
-app.use(express.static(path.join(__dirname, "public/")))
-
 
 // extra security packages
 const helmet = require('helmet')
@@ -63,6 +60,11 @@ app.use(methodOverride('_method'))
 app.set('view engine', 'ejs')
 const path = require('path')
 app.set('views', path.join(__dirname, 'views'))
+
+//setup css
+app.use(express.static(path.join(__dirname, "public/")))
+
+
 
 //set up favicon
 const favicon = require('serve-favicon')
