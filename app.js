@@ -57,7 +57,10 @@ app.use(methodOverride('_method'))
 //set up paths for views directory
 app.set('view engine', 'ejs')
 const path = require('path')
-app.set('views', path.join(__dirname, '/views'))
+app.set('views', path.join(__dirname, 'views'))
+
+//setup css
+app.use('static', app.static(path.join(__dirname, "public/" +"assets/"+"styles.css")))
 
 //set up favicon
 const favicon = require('serve-favicon')
