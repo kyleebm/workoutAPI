@@ -4,6 +4,11 @@ require('express-async-errors')
 const express = require('express')
 const app = express()
 
+
+//setup css
+app.use( express.static(path.join(__dirname, "public/" +"assets/"+"styles.css")))
+
+
 // extra security packages
 const helmet = require('helmet')
 const cors = require('cors')
@@ -58,9 +63,6 @@ app.use(methodOverride('_method'))
 app.set('view engine', 'ejs')
 const path = require('path')
 app.set('views', path.join(__dirname, 'views'))
-
-//setup css
-app.use('static', express.static(path.join(__dirname, "public/" +"assets/"+"styles.css")))
 
 //set up favicon
 const favicon = require('serve-favicon')
