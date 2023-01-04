@@ -1,4 +1,8 @@
 body {
-    height: 100vh;
+    display: flex;
+    align-items: center;
 }
 
+.container-info {
+    display: flex;
+}
