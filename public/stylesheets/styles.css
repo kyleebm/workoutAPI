@@ -10,4 +10,5 @@ body {
 .container-info {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
