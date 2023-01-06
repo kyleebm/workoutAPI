@@ -30,6 +30,9 @@ app.use(helmet())
 app.use(cors())
 app.use(xss())
 
+const scriptSrcUrls= [
+  "https://stackpath.bootstrapcdn.com",
+]
 
 
 const connectSrcUrls = [
@@ -43,6 +46,7 @@ app.use(
       directives: {
           defaultSrc: [],
           connectSrc: ["'self'", ...connectSrcUrls],
+          scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls]
       },
   })
 );
