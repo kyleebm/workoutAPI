@@ -37,6 +37,7 @@ const connectSrcUrls = [
   
 ];
 const fontSrcUrls = [];
+
 app.use(
   helmet.contentSecurityPolicy({
       directives: {
@@ -62,8 +63,7 @@ const path = require('path')
 app.set('views', path.join(__dirname, 'views'))
 
 //setup css
-app.use(express.static(path.join(__dirname, "public/")))
-
+app.use(express.static(path.join(__dirname, "public")))
 
 
 //set up favicon
