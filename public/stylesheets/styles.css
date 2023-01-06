@@ -1,16 +1,17 @@
 body {
-    height: max-content;
-    width: max-content;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: rgb(249, 249, 249);
     background: rgb(34, 36, 65);
+    margin:auto
 }
 
-.container-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 4ems;
+    }
 }
