@@ -3,7 +3,8 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    text-decoration: aliceblue;
+    color: rgb(249, 249, 249);
+    background: rgb(34, 36, 65);
 }
 
 .container-info {
