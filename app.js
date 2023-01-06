@@ -32,6 +32,7 @@ app.use(xss())
 
 const scriptSrcUrls= [
   "https://stackpath.bootstrapcdn.com",
+  "https://cdn.jsdelivr.net",
 ]
 
 
@@ -39,7 +40,7 @@ const connectSrcUrls = [
   "https://www.workoutbuddyapp.com",
   
 ];
-const fontSrcUrls = [];
+
 
 app.use(
   helmet.contentSecurityPolicy({
