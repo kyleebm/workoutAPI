@@ -12,11 +12,7 @@ const cors = require('cors')
 const xss = require('xss-clean')
 const rateLimiter = require('express-rate-limit')
 
-
-// lets us access form data
-//app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-
 
 // security
 app.set('trust proxy', 1)

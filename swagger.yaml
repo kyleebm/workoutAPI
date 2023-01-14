@@ -74,10 +74,10 @@ paths:
       operationId: GetAllWorkouts
       parameters: 
         - in: query
-          name: 'name'
+          name: name
           schema:
             type: string
-          description: a search string that can filter the workout results,
+          description: a search string will return the workouts with that character,
         - in: query
           name: muscleGroup
           schema:
@@ -89,10 +89,10 @@ paths:
               - shoulders
               - legs
         - in: query
-          name: 'see all workouts'
+          name: seeAllWorkouts
           schema:
             type: boolean
-          description: when set to true, you will see all workouts from all accounts,
+          description: when set to true, you will see all workouts from all accounts on the website,
         - in: query
           name: 'sort'
           schema:
