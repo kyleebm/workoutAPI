@@ -121,7 +121,7 @@ const deleteWorkout = catchAsync(async (req, res) => {
     }
 
     const remainingWorkouts = await Workout.find({createdBy: userId})
-    res.status(StatusCodes.OK).json({remainingWorkouts, workoutToBeDeleted})
+    res.status(StatusCodes.OK).json({remainingWorkouts})
   })
 
 
