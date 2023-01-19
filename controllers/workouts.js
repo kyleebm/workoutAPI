@@ -83,10 +83,10 @@ const updateWorkout = catchAsync( async (req,res) =>{
     if(name===""||reps ==="" || sets==="" || muscleGroup===""){
         throw new BadRequestError('fields cannot be empty')
     }
-    const workoutToBeChanged = await Workout.findOne({_id: workoutId})
-    if(workoutToBeChanged.createdBy !== userId){
-      throw new UnauthenticatedError('only able to edit authored workouts')
-    }
+    // const workoutToBeChanged = await Workout.findOne({_id: workoutId})
+    // if(workoutToBeChanged.createdBy !== userId){
+    //   throw new UnauthenticatedError('only able to edit authored workouts')
+    // }
     
     const workout = await Workout.findByIdAndUpdate({
         _id:workoutId, 
@@ -108,10 +108,10 @@ const updateWorkout = catchAsync( async (req,res) =>{
 const deleteWorkout = catchAsync(async (req, res) => {
     const { user:{userId}, params:{id:workoutId} } = req
     
-    const workoutToBeDeleted = await Workout.findOne({_id: workoutId})
-    if(workoutToBeDeleted.createdBy !== userId){
-      throw new UnauthenticatedError('only able to delete authored workouts')
-    }
+    // const workoutToBeDeleted = await Workout.findOne({_id: workoutId})
+    // if(workoutToBeDeleted.createdBy !== userId){
+    //   throw new UnauthenticatedError('only able to delete authored workouts')
+    // }
 
     const deletedWorkout = await Workout.findByIdAndRemove({_id : workoutId, createdBy: userId})
     
