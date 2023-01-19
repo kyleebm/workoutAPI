@@ -111,7 +111,7 @@ const deleteWorkout = catchAsync(async (req, res) => {
       throw new NotFoundError(`No workout with Id ${workoutId}`)
     }
 
-    const remainingWorkouts = await Workout.find({})
+    const remainingWorkouts = await Workout.find({createdBy: userId})
     res.status(StatusCodes.OK).json({remainingWorkouts})
   })
 
