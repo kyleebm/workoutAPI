@@ -83,7 +83,10 @@ const updateWorkout = catchAsync( async (req,res) =>{
     if(name===""||reps ==="" || sets==="" || muscleGroup===""){
         throw new BadRequestError('fields cannot be empty')
     }
-
+    const workoutToBeChanged = await Workout.findOne({_id: workoutId})
+    if(workoutToBeChanged.createdBy !== userId){
+      throw new UnauthenticatedError('only able to edit authored workouts')
+    }
     
     const workout = await Workout.findByIdAndUpdate({
         _id:workoutId, 
