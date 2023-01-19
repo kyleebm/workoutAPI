@@ -105,7 +105,7 @@ const updateWorkout = catchAsync( async (req,res) =>{
 const deleteWorkout = catchAsync(async (req, res) => {
     const { user:{userId}, params:{id:workoutId} } = req
     
-    const workoutToBeDeleted = await Workout.findOne({_id: workoutId, createdBy:userId})
+    const workoutToBeDeleted = await Workout.findOne({_id: workoutId})
     if(workoutToBeDeleted.createdBy !== userId){
       throw new UnauthenticatedError('only able to delete authored workouts')
     }
