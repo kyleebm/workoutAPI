@@ -1,6 +1,6 @@
 const Workout  = require('../models/workouts')
 const {StatusCodes} = require('http-status-codes')
-const {BadRequestError, NotFoundError} = require('../errors')
+const {BadRequestError, NotFoundError,UnauthenticatedError} = require('../errors')
 const catchAsync = require('../utils/catchAsync')
 
 
@@ -106,7 +106,9 @@ const deleteWorkout = catchAsync(async (req, res) => {
     const { user:{userId}, params:{id:workoutId} } = req
     
     const workoutToBeDeleted = await Workout.findOne({_id: workoutId, createdBy:userId})
-    console.log(workoutToBeDeleted)
+    if(workoutToBeDeleted.createdBy !== userId){
+      throw new UnauthenticatedError('only able to delete authored workouts')
+    }
 
     const deletedWorkout = await Workout.findByIdAndRemove({_id : workoutId, createdBy: userId})
     
@@ -116,7 +118,7 @@ const deleteWorkout = catchAsync(async (req, res) => {
     }
 
     const remainingWorkouts = await Workout.find({createdBy: userId})
-    res.status(StatusCodes.OK).json({remainingWorkouts})
+    res.status(StatusCodes.OK).json({remainingWorkouts, workoutToBeDeleted})
   })
 
 
