@@ -10,7 +10,7 @@ const getAllWorkouts = catchAsync(async (req, res, next) => {
     const queryObject = {}
     
     //either show all workouts in database or just the ones made by user    
-    if(!seeAllWorkouts){
+    if(!seeAllWorkouts || seeAllWorkouts === false){
        queryObject.createdBy = req.user.userId
     }
     
