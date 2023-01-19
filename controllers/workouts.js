@@ -63,8 +63,8 @@ const createWorkoutForm = (req,res)=>{res.status(StatusCodes.OK).render('../view
 
 const getWorkout = catchAsync(async (req, res) => {
       
-    const { user: { userId}, params:{id:workoutId} } = req
-    const workout = await Workout.findOne({_id: workoutId, createdBy:userId})
+    const {params:{id:workoutId} } = req
+    const workout = await Workout.findOne({_id: workoutId})
     
     res.status(StatusCodes.OK)
        .json(workout)
