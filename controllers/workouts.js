@@ -104,6 +104,10 @@ const updateWorkout = catchAsync( async (req,res) =>{
 
 const deleteWorkout = catchAsync(async (req, res) => {
     const { user:{userId}, params:{id:workoutId} } = req
+    
+    const workoutToBeDeleted = await Workout.findOne({_id: workoutId, createdBy:userId})
+    console.log(workoutToBeDeleted)
+
     const deletedWorkout = await Workout.findByIdAndRemove({_id : workoutId, createdBy: userId})
     
     //res.redirect('/workouts')
